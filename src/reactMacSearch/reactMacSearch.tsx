@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
+import {ReactComponent as SearchIcon} from './assets/searchIcon.svg'
 import classes from './reactMacSearch.module.scss'
 
 interface IState {
     displayMacSearch: boolean
     searchValue: string
+    autocompleteSuggestion: string
 }
 
 interface IProps {
     triggerKey: string,
     closeKey?: string
     withMeta?: boolean
+    withIcon?: boolean
+    iconComponent?: any
     placeholder?: string
 }
 
@@ -19,8 +23,9 @@ class ReactMacSearch extends Component<IProps, IState> {
     constructor(props: IProps) {
         super(props)
         this.state = {
-            displayMacSearch: false,
-            searchValue: ''
+            displayMacSearch: true,
+            searchValue: '',
+            autocompleteSuggestion: ''
         }
     }
 
@@ -65,21 +70,45 @@ class ReactMacSearch extends Component<IProps, IState> {
         return false
     }
 
+    /**
+     * @description
+     * Show or hide/render default or custom main search icon.
+     */
+    private renderSearchMainIcon = (): React.ReactElement | null => {
+        const { withIcon, iconComponent } = this.props
+        if (!withIcon) {
+            return null
+        }
+        return (
+            <div className={classes.iconWrapper}>
+                { iconComponent || <SearchIcon /> }
+            </div>
+        )
+    }
+
     render() {
         if (!this.state.displayMacSearch) {
             return null
         }
+        const { searchValue, autocompleteSuggestion } = this.state
+        const { placeholder } = this.props
         return (
             <div className={classes.container}>
                 <div className={classes.searchWidget}>
-                    <div>ICON</div>
-                    <input
-                        className={classes.searchInput}
-                        placeholder={this.props.placeholder}
-                        value={this.state.searchValue}
-                        onChange={this.onSearchChange}
-                        autoFocus
-                    />
+                    { this.renderSearchMainIcon()}
+                    <div>
+                        <input
+                            size={searchValue.length}
+                            className={classes.searchInput}
+                            placeholder={placeholder}
+                            value={searchValue}
+                            onChange={this.onSearchChange}
+                            autoFocus
+                        />
+                        <span className={classes.autocompleteSuggestion}>
+                            { autocompleteSuggestion }
+                        </span>
+                    </div>
                 </div>
             </div>
         )
@@ -90,7 +119,8 @@ class ReactMacSearch extends Component<IProps, IState> {
 ReactMacSearch.defaultProps = {
     closeKey: 'Escape',
     withMeta: false,
-    placeholder: 'Search something'
+    placeholder: 'Search something',
+    withIcon: true
 }
 
 

@@ -4,6 +4,7 @@
   --reactMacSearch-width: 500px;
   --reactMacSearch-height: 50px;
   --reactMacSearch-primary-color: #ede5e0;
+  --reactMacSearch-secondary-color: #757575;
 }
 
 .container {
@@ -12,6 +13,13 @@
   height: 100%;
   z-index: 99999;
   font-family: 'Raleway', sans-serif;
+
+  .iconWrapper {
+    width: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .searchWidget {
     position: fixed;
@@ -22,15 +30,26 @@
     background: var(--reactMacSearch-primary-color);
     border-radius: 6px;
     display: flex;
+    justify-content: flex-start;
     align-items: center;
 
     .searchInput {
-      width: 90%;
       outline: none;
       background: transparent;
       border: none;
       font-size: 26px;
-      padding: 4px;
+      padding: 4px 0px 4px 4px;
+      margin-right: 0;
+    }
+
+    .autocompleteSuggestion {
+      outline: none;
+      background: transparent;
+      color: var(--reactMacSearch-secondary-color);
+      font-weight: bold;
+      border: none;
+      font-size: 24px;
+      padding: 0;
     }
   }
 }
