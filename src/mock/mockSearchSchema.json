@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Downloads",
+    "icon":  "Some icon path",
+    "actionName": "moveToDownload",
+    "widgetType": "json | csv | image | program | page",
+    "details": [
+      {
+        "name": "Application",
+        "value": "Downloads"
+      },
+      {
+        "name": "Description",
+        "value": "To see your download files click here."
+      }
+    ]
+  },
+  {
+    "name": "Roses",
+    "icon":  "Some icon path",
+    "actionName": "moveToDownload",
+    "widgetType": "json | csv | image | program | page",
+    "details": [
+      {
+        "name": "Application",
+        "value": "Downloads"
+      },
+      {
+        "name": "Description",
+        "value": "To see your download files click here."
+      }
+    ]
+  },
+  {
+    "name": "Lorazior",
+    "icon":  "Some icon path",
+    "actionName": "moveToDownload",
+    "widgetType": "json | csv | image | program | page",
+    "details": [
+      {
+        "name": "Application",
+        "value": "Downloads"
+      },
+      {
+        "name": "Description",
+        "value": "To see your download files click here."
+      }
+    ]
+  },
+  {
+    "name": "Testing",
+    "icon":  "Some icon path",
+    "actionName": "moveToDownload",
+    "widgetType": "json | csv | image | program | page",
+    "details": [
+      {
+        "name": "Application",
+        "value": "Downloads"
+      },
+      {
+        "name": "Description",
+        "value": "To see your download files click here."
+      }
+    ]
+  }
+]

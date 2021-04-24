@@ -5,7 +5,10 @@ import classes from './reactMacSearch.module.scss'
 interface IState {
     displayMacSearch: boolean
     searchValue: string
-    autocompleteSuggestion: string
+    autocompleteSuggestion: {
+        full: string,
+        display: string
+    }
 }
 
 interface IProps {
@@ -15,6 +18,7 @@ interface IProps {
     withIcon?: boolean
     iconComponent?: any
     placeholder?: string
+    searchSchema?: any //TODO: need to add hard type here
 }
 
 class ReactMacSearch extends Component<IProps, IState> {
@@ -25,7 +29,10 @@ class ReactMacSearch extends Component<IProps, IState> {
         this.state = {
             displayMacSearch: true,
             searchValue: '',
-            autocompleteSuggestion: ''
+            autocompleteSuggestion: {
+                full: '',
+                display: ''
+            }
         }
     }
 
@@ -41,7 +48,28 @@ class ReactMacSearch extends Component<IProps, IState> {
 
     private onSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { value } = e.target
-        this.setState({ searchValue: value })
+        const autocompleteSuggestion = this.searchForSuggestion(value)
+        this.setState({ searchValue: value, autocompleteSuggestion })
+    }
+
+    /**
+     * @description
+     * Search for suggestion and ....
+     */
+    private searchForSuggestion = (value: string): { full: string, display: string } => {
+        if (!value) {
+            return { full: '', display: '' }
+        }
+        const index = this.props.searchSchema.findIndex(({ name }: { name: string }) => {
+            return name.toLowerCase().startsWith(value.toLowerCase())
+        })
+        if (index === -1) {
+            return { full: '', display: '' }
+        }
+        return {
+            full: this.props.searchSchema[index].name,
+            display: this.props.searchSchema[index].name.replace(value, '')
+        }
     }
 
     /**
@@ -106,7 +134,7 @@ class ReactMacSearch extends Component<IProps, IState> {
                             autoFocus
                         />
                         <span className={classes.autocompleteSuggestion}>
-                            { autocompleteSuggestion }
+                            { autocompleteSuggestion.display }
                         </span>
                     </div>
                 </div>
