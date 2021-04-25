@@ -16,39 +16,7 @@
     ]
   },
   {
-    "name": "Roses",
-    "icon":  "Some icon path",
-    "actionName": "moveToDownload",
-    "widgetType": "json | csv | image | program | page",
-    "details": [
-      {
-        "name": "Application",
-        "value": "Downloads"
-      },
-      {
-        "name": "Description",
-        "value": "To see your download files click here."
-      }
-    ]
-  },
-  {
-    "name": "Lorazior",
-    "icon":  "Some icon path",
-    "actionName": "moveToDownload",
-    "widgetType": "json | csv | image | program | page",
-    "details": [
-      {
-        "name": "Application",
-        "value": "Downloads"
-      },
-      {
-        "name": "Description",
-        "value": "To see your download files click here."
-      }
-    ]
-  },
-  {
-    "name": "Testing",
+    "name": "Downloads-adn more",
     "icon":  "Some icon path",
     "actionName": "moveToDownload",
     "widgetType": "json | csv | image | program | page",

@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import {ReactComponent as SearchIcon} from './assets/searchIcon.svg'
+import ReactMacSearchSmartInput from './containers/macSearchSmartInput'
+import { ConfigurationItemType } from './types'
 import classes from './reactMacSearch.module.scss'
 
 interface IState {
     displayMacSearch: boolean
-    searchValue: string
-    autocompleteSuggestion: {
-        full: string,
-        display: string
-    }
+    results: ConfigurationItemType[]
 }
 
 interface IProps {
@@ -18,7 +16,7 @@ interface IProps {
     withIcon?: boolean
     iconComponent?: any
     placeholder?: string
-    searchSchema?: any //TODO: need to add hard type here
+    searchSchema: ConfigurationItemType[]
 }
 
 class ReactMacSearch extends Component<IProps, IState> {
@@ -28,11 +26,7 @@ class ReactMacSearch extends Component<IProps, IState> {
         super(props)
         this.state = {
             displayMacSearch: true,
-            searchValue: '',
-            autocompleteSuggestion: {
-                full: '',
-                display: ''
-            }
+            results: []
         }
     }
 
@@ -44,32 +38,6 @@ class ReactMacSearch extends Component<IProps, IState> {
                 this.setState({ displayMacSearch: false })
             }
         })
-    }
-
-    private onSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        const { value } = e.target
-        const autocompleteSuggestion = this.searchForSuggestion(value)
-        this.setState({ searchValue: value, autocompleteSuggestion })
-    }
-
-    /**
-     * @description
-     * Search for suggestion and ....
-     */
-    private searchForSuggestion = (value: string): { full: string, display: string } => {
-        if (!value) {
-            return { full: '', display: '' }
-        }
-        const index = this.props.searchSchema.findIndex(({ name }: { name: string }) => {
-            return name.toLowerCase().startsWith(value.toLowerCase())
-        })
-        if (index === -1) {
-            return { full: '', display: '' }
-        }
-        return {
-            full: this.props.searchSchema[index].name,
-            display: this.props.searchSchema[index].name.replace(value, '')
-        }
     }
 
     /**
@@ -92,15 +60,18 @@ class ReactMacSearch extends Component<IProps, IState> {
      * @private
      */
     private isCloseKeyPressed(key: string): boolean {
-        if (this.props.closeKey === key) {
-            return true
-        }
-        return false
+        return (this.props.closeKey === key)
+    }
+
+    private onValueChanged = (value: string): void => {
+        const results = this.props.searchSchema.filter((item: ConfigurationItemType) =>
+            item.name.startsWith(value))
+        this.setState({ results })
     }
 
     /**
      * @description
-     * Show or hide/render default or custom main search icon.
+     * Show or hide or render default or custom main search icon.
      */
     private renderSearchMainIcon = (): React.ReactElement | null => {
         const { withIcon, iconComponent } = this.props
@@ -114,30 +85,43 @@ class ReactMacSearch extends Component<IProps, IState> {
         )
     }
 
+
+    /**
+     * @description
+     * Render the search results items list.
+     * @private
+     */
+        // TODO: change to component.
+    private renderSearchResults = (): React.ReactElement | null => {
+        if (!this.state.results.length) {
+            return null
+        }
+        return (
+            <ul>
+                {
+                    this.state.results.map((result: ConfigurationItemType) => (
+                        <li key={result.name}> { result.name } </li>
+                    ))
+                }
+            </ul>
+        )
+    }
+
     render() {
         if (!this.state.displayMacSearch) {
             return null
         }
-        const { searchValue, autocompleteSuggestion } = this.state
-        const { placeholder } = this.props
         return (
             <div className={classes.container}>
                 <div className={classes.searchWidget}>
                     { this.renderSearchMainIcon()}
-                    <div>
-                        <input
-                            size={searchValue.length}
-                            className={classes.searchInput}
-                            placeholder={placeholder}
-                            value={searchValue}
-                            onChange={this.onSearchChange}
-                            autoFocus
-                        />
-                        <span className={classes.autocompleteSuggestion}>
-                            { autocompleteSuggestion.display }
-                        </span>
-                    </div>
+                    <ReactMacSearchSmartInput
+                        onValueChanged={this.onValueChanged}
+                        placeholder={this.props.placeholder}
+                        searchSchema={this.props.searchSchema}
+                    />
                 </div>
+                {this.renderSearchResults()}
             </div>
         )
     }
