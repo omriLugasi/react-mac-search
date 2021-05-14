@@ -13,12 +13,13 @@ interface IState {
 interface IProps {
     triggerKey: string
     closeKey?: string
-    withMeta?: boolean
+    withMetaKey?: boolean
     withIcon?: boolean
     iconComponent?: any
     placeholder?: string
     searchSchema: ConfigurationItemType[],
     handleSearch?: (item: ConfigurationItemType, inputValue: string) => boolean
+    handleItemSelected: (item: ConfigurationItemType['action']) => void
 }
 
 class ReactMacSearch extends Component<IProps, IState> {
@@ -49,7 +50,7 @@ class ReactMacSearch extends Component<IProps, IState> {
      * @private
      */
     private isTriggeredKeyPressed(key: string, metaPressed: boolean): boolean {
-        if (this.props.triggerKey === key && (metaPressed === this.props.withMeta)) {
+        if (this.props.triggerKey === key && (metaPressed === this.props.withMetaKey)) {
             return true
         }
         return false
@@ -73,6 +74,20 @@ class ReactMacSearch extends Component<IProps, IState> {
 
     /**
      * @description
+     * When user click on enter while he/she in focus on item
+     * The following function will triggered, it will trigger the handleItemSelected
+     * And reset the library state.
+     */
+    private onItemsSelected = (item: ConfigurationItemType['action']) => {
+        this.setState({
+            displayMacSearch: false,
+            results: []
+        })
+        this.props.handleItemSelected(item)
+    }
+
+    /**
+     * @description
      * Show or hide or render default or custom main search icon.
      */
     private renderSearchMainIcon = (): React.ReactElement | null => {
@@ -87,18 +102,16 @@ class ReactMacSearch extends Component<IProps, IState> {
         )
     }
 
-
     /**
      * @description
      * Render the search results items list.
      * @private
      */
-        // TODO: change to component.
     private renderSearchResults = (): React.ReactElement | null => {
         if (!this.state.results.length) {
             return null
         }
-        return <SearchList results={this.state.results} />
+        return <SearchList results={this.state.results} onItemSelected={this.onItemsSelected} />
     }
 
     render() {

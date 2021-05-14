@@ -1,0 +1,50 @@
+.pageWidget {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+
+  .infoBlock {
+    text-align: center;
+  }
+
+  .name {
+    font-size: 18px;
+    line-height: 0;
+    margin: 0 auto;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 0;
+    margin: 0 auto;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--reactMacSearch-secondary-color);
+    width: 98%;
+    outline: none;
+    border: none;
+    margin-top: 80px;
+  }
+
+  .list {
+    font-size: 13px;
+    width: 70%;
+    text-align: start;
+  }
+
+  .listItem {
+    display: flex;
+    justify-content: space-between;
+
+    .itemName {
+      text-align: end;
+      font-weight: bold;
+    }
+  }
+}

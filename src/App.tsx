@@ -7,7 +7,14 @@ import schemaExample from './mock/mockSearchSchema.json'
 function App() {
   return (
     <div className="App">
-      <ReactMacSearch triggerKey={'k'} withMeta searchSchema={schemaExample} />
+      <ReactMacSearch
+          triggerKey={'k'}
+          withMetaKey
+          searchSchema={schemaExample as any}
+          handleItemSelected={(e) => {
+              console.log({ e })
+          }}
+      />
     </div>
   );
 }
