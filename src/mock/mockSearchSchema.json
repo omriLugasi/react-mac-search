@@ -1,34 +1,31 @@
 [
   {
-    "name": "Downloads",
-    "icon":  "Some icon path",
-    "actionName": "moveToDownload",
     "widgetType": "page",
-    "details": [
-      {
-        "name": "Application",
-        "value": "Downloads"
-      },
-      {
-        "name": "Description",
-        "value": "To see your download files click here."
-      }
-    ]
+    "name": "Downloads",
+    "action": {
+      "name": "moveToDownloadPage",
+      "props": {}
+    },
+    "widgetData": {
+      "pageIcon": "__page__",
+      "description": "Page that you can download all your assets",
+      "details": [
+        {
+          "name": "Available files",
+          "value": "5 files waiting for you"
+        },
+        {
+          "name": "Assets Bank",
+          "value": "29827172"
+        }
+      ]
+    }
   },
   {
-    "name": "Downloads-adn more",
-    "icon":  "Some icon path",
-    "actionName": "moveToDownload",
     "widgetType": "json",
-    "details": [
-      {
-        "name": "Application",
-        "value": "Downloads"
-      },
-      {
-        "name": "Description",
-        "value": "To see your download files click here."
-      }
-    ]
+    "name": "Download Users",
+    "action": {
+      "name": "DownloadUsersJsonFile"
+    }
   }
 ]

@@ -40,7 +40,7 @@ const MacSearchSmartInput = (props: IProps) => {
         }
         return {
             full: props.searchSchema[index].name,
-            display: props.searchSchema[index].name.replace(value, '')
+            display: props.searchSchema[index].name.toLowerCase().replace(value.toLowerCase(), '')
         }
     }, [props.searchSchema])
 
