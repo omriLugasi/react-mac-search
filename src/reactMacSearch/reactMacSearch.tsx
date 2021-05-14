@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {ReactComponent as SearchIcon} from './assets/searchIcon.svg'
 import ReactMacSearchSmartInput from './containers/macSearchSmartInput'
+import SearchList from './components/searchList'
 import { ConfigurationItemType } from './types'
 import classes from './reactMacSearch.module.scss'
 
@@ -10,13 +11,14 @@ interface IState {
 }
 
 interface IProps {
-    triggerKey: string,
+    triggerKey: string
     closeKey?: string
     withMeta?: boolean
     withIcon?: boolean
     iconComponent?: any
     placeholder?: string
-    searchSchema: ConfigurationItemType[]
+    searchSchema: ConfigurationItemType[],
+    handleSearch?: (item: ConfigurationItemType, inputValue: string) => boolean
 }
 
 class ReactMacSearch extends Component<IProps, IState> {
@@ -65,7 +67,7 @@ class ReactMacSearch extends Component<IProps, IState> {
 
     private onValueChanged = (value: string): void => {
         const results = this.props.searchSchema.filter((item: ConfigurationItemType) =>
-            item.name.startsWith(value))
+            (this.props.handleSearch && this.props.handleSearch(item, value)))
         this.setState({ results })
     }
 
@@ -96,15 +98,7 @@ class ReactMacSearch extends Component<IProps, IState> {
         if (!this.state.results.length) {
             return null
         }
-        return (
-            <ul>
-                {
-                    this.state.results.map((result: ConfigurationItemType) => (
-                        <li key={result.name}> { result.name } </li>
-                    ))
-                }
-            </ul>
-        )
+        return <SearchList results={this.state.results} />
     }
 
     render() {
@@ -132,7 +126,9 @@ ReactMacSearch.defaultProps = {
     closeKey: 'Escape',
     withMeta: false,
     placeholder: 'Search something',
-    withIcon: true
+    withIcon: true,
+    handleSearch: (item: ConfigurationItemType, inputValue: string) =>
+        inputValue && item.name.startsWith(inputValue)
 }
 
 

@@ -3,7 +3,7 @@
     "name": "Downloads",
     "icon":  "Some icon path",
     "actionName": "moveToDownload",
-    "widgetType": "json | csv | image | program | page",
+    "widgetType": "page",
     "details": [
       {
         "name": "Application",
@@ -19,7 +19,7 @@
     "name": "Downloads-adn more",
     "icon":  "Some icon path",
     "actionName": "moveToDownload",
-    "widgetType": "json | csv | image | program | page",
+    "widgetType": "json",
     "details": [
       {
         "name": "Application",
