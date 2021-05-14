@@ -1,0 +1,24 @@
+.results {
+  position: fixed;
+  top: calc(200px + var(--reactMacSearch-height) - 5px);
+  left: calc(50% - var(--reactMacSearch-width) / 2);
+  width: var(--reactMacSearch-width);
+  height: fit-content;
+  max-height: 600px;
+  background: var(--reactMacSearch-primary-color);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+
+  .list {
+    width: 40%;
+    border-right: solid 1px black;
+
+    .focusItem {
+      background: aqua;
+    }
+  }
+}
