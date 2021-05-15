@@ -1,0 +1,21 @@
+.jsonWidget {
+  position: relative;
+
+  .copyButton {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    background: #75757557;
+    padding: 9px;
+    border-radius: 6px;
+  }
+
+  .dark {
+    background: #2f2e2e;
+    color: white;
+    padding: 10px;
+    margin: 0 auto;
+    max-height: 350px;
+    overflow: scroll;
+  }
+}

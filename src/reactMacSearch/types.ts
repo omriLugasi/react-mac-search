@@ -19,6 +19,13 @@ export type PageWidgetType = {
 
 export type JsonWidgetType = {
     name: string
+    widgetData?: {
+        data: any,
+        theme?: 'dark',
+        features?: {
+            copy?: boolean
+        }
+    }
     action: {
         name: string,
         props?: any
