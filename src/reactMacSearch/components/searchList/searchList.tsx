@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState, useRef} from 'react'
 import { ConfigurationItemType } from './../../types'
 import DynamicWidget from './../DynamicWidget'
 import {ReactComponent as PageDefaultIcon} from './../../assets/layers_white_24dp.svg'
