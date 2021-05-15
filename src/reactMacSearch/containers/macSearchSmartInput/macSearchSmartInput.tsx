@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import classes from './macSearchSmartInput.module.scss'
+import {ConfigurationItemType} from "../../types";
 
 
 interface IProps {
     placeholder?: string
-    searchSchema?: any // TODO; add strong type
+    searchSchema: ConfigurationItemType[]
     onValueChanged: (value: string) => void
 }
 
