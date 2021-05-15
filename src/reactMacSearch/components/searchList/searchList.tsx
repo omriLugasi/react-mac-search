@@ -14,6 +14,11 @@ const SearchList = (props: ISearchListProps) => {
     const [selectedItem, setSelectedItem] = useState<ConfigurationItemType>(props.results[0])
     const [focusItem , setFocusItem] = useState<number>(0)
 
+    useEffect(() => {
+        setSelectedItem(props.results[0])
+        setFocusItem(0)
+    }, [props.results])
+
     const navigator = useCallback((e) => {
         if (e.key === 'ArrowDown') {
             const newSelectedItemIndex = focusItem + 1
