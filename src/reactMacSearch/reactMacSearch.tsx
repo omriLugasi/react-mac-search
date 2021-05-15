@@ -38,7 +38,7 @@ class ReactMacSearch extends Component<IProps, IState> {
             if (this.isTriggeredKeyPressed(e.key, e.metaKey)) {
                 this.setState({ displayMacSearch: true })
             } else if (this.isCloseKeyPressed(e.key)) {
-                this.setState({ displayMacSearch: false })
+                this.setState({ displayMacSearch: false, results: [] })
             }
         })
     }
@@ -141,7 +141,7 @@ ReactMacSearch.defaultProps = {
     placeholder: 'Search something',
     withIcon: true,
     handleSearch: (item: ConfigurationItemType, inputValue: string) =>
-        inputValue && item.name.startsWith(inputValue)
+        inputValue && item.name.toLowerCase().startsWith(inputValue.toLowerCase())
 }
 
 

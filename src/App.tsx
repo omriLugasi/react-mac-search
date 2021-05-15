@@ -1,8 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import ReactMacSearch from "./reactMacSearch";
-import schemaExample from './mock/mockSearchSchema.json'
+import schemaExample from './mock/mockTest1.json'
 
 function App() {
   return (
