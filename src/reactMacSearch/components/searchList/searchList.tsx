@@ -7,6 +7,7 @@ import classes from './searchList.module.scss'
 export interface ISearchListProps {
     results: ConfigurationItemType[],
     onItemSelected: (item: ConfigurationItemType['action']) => void
+    onFocusChanged: (name: ConfigurationItemType['name']) => void
 }
 
 
@@ -17,11 +18,12 @@ const SearchList = (props: ISearchListProps) => {
     const lastReachIndex = useRef<number>(0)
     /**
      * @description
-     * On each re search reset the selection to the first item in the search array.
+     * Every time the search value change, reset the focus item index to be the first item.
      */
     useEffect(() => {
         setSelectedItem(props.results[0])
         setFocusItem(0)
+        listRef.current.scrollTo(0, 0)
     }, [props.results])
 
     const navigator = useCallback((e: KeyboardEvent) => {
@@ -56,12 +58,25 @@ const SearchList = (props: ISearchListProps) => {
         }
     }, [focusItem, lastReachIndex])
 
+    /**
+     * @description
+     * Set the "keydown" event on the body Dom element.
+     */
     useEffect(() => {
         document.body.addEventListener('keydown', navigator)
         return () => {
             document.body.removeEventListener('keydown', navigator)
         }
     }, [focusItem])
+
+    /**
+     * @description
+     * When the focus on item changed this useEffect will update
+     * the container about the new focus item name.
+     */
+    useEffect(() => {
+        props.onFocusChanged(props.results[focusItem]?.name)
+    }, [focusItem, props.onFocusChanged])
 
     return (
         <div className={classes.results}>

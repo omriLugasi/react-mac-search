@@ -1,5 +1,6 @@
 .jsonWidget {
   position: relative;
+  counter-reset: line 0;
 
   .copyButton {
     cursor: pointer;
@@ -17,5 +18,19 @@
     margin: 0 auto;
     height: 350px;
     overflow: scroll;
+    font-size: 12px;
+  }
+
+  code {
+    display: block;
+
+    &.lineCounter:before {
+      counter-increment: line;
+      content: counter(line);
+      white-space: pre;
+      color: #888;
+      padding: 0 .5em;
+      width: 50px;
+    }
   }
 }

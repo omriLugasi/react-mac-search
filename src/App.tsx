@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import ReactMacSearch from "./reactMacSearch";
-import schemaExample from './mock/mockTest1.json'
+import schemaExample from './mock/mockSearchSchema.json'
 
 function App() {
   return (

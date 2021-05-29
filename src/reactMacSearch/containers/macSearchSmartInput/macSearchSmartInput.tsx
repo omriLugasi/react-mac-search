@@ -6,7 +6,8 @@ import {ConfigurationItemType} from "../../types";
 interface IProps {
     placeholder?: string
     searchSchema: ConfigurationItemType[]
-    onValueChanged: (value: string) => void
+    onValueChanged: (value: string) => void,
+    focusItemName: string
 }
 
 let timeoutId: NodeJS.Timeout
@@ -95,6 +96,13 @@ const MacSearchSmartInput = (props: IProps) => {
             <span className={classes.autocompleteSuggestion}>
                 { autocompleteSuggestion.display }
             </span>
+            {
+                props.focusItemName && !!searchValue.length && (
+                    <span>
+                        - { props.focusItemName }
+                    </span>
+                )
+            }
         </div>
     )
 }

@@ -8,6 +8,7 @@ import classes from './reactMacSearch.module.scss'
 interface IState {
     displayMacSearch: boolean
     results: ConfigurationItemType[]
+    focusItemName: string
 }
 
 interface IProps {
@@ -29,7 +30,8 @@ class ReactMacSearch extends Component<IProps, IState> {
         super(props)
         this.state = {
             displayMacSearch: true,
-            results: []
+            results: [],
+            focusItemName: ''
         }
     }
 
@@ -66,10 +68,15 @@ class ReactMacSearch extends Component<IProps, IState> {
         return (this.props.closeKey === key)
     }
 
+    /**
+     * @description
+     * when input value change the following function will filter our list
+     * by the "handleSearch" function
+     */
     private onValueChanged = (value: string): void => {
         const results = this.props.searchSchema.filter((item: ConfigurationItemType) =>
             (this.props.handleSearch && this.props.handleSearch(item, value)))
-        this.setState({ results })
+        this.setState({ results, focusItemName: '' })
     }
 
     /**
@@ -84,6 +91,10 @@ class ReactMacSearch extends Component<IProps, IState> {
             results: []
         })
         this.props.handleItemSelected(item)
+    }
+
+    private onFocusChanged = (name: ConfigurationItemType['name']): void => {
+        this.setState({ focusItemName: name })
     }
 
     /**
@@ -111,7 +122,11 @@ class ReactMacSearch extends Component<IProps, IState> {
         if (!this.state.results.length) {
             return null
         }
-        return <SearchList results={this.state.results} onItemSelected={this.onItemsSelected} />
+        return <SearchList
+            results={this.state.results}
+            onItemSelected={this.onItemsSelected}
+            onFocusChanged={this.onFocusChanged}
+        />
     }
 
     render() {
@@ -126,6 +141,7 @@ class ReactMacSearch extends Component<IProps, IState> {
                         onValueChanged={this.onValueChanged}
                         placeholder={this.props.placeholder}
                         searchSchema={this.props.searchSchema}
+                        focusItemName={this.state.focusItemName}
                     />
                 </div>
                 {this.renderSearchResults()}

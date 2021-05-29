@@ -24,6 +24,7 @@ export type JsonWidgetType = {
         theme?: 'dark',
         features?: {
             copy?: boolean
+            linesCounter?: boolean
         }
     }
     action: {
